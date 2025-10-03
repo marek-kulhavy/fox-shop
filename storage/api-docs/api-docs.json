@@ -1,0 +1,211 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Lišákův Obchod API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Produkty"
+                ],
+                "summary": "Získá seznam produktů",
+                "description": "Zobrazí seznam produktů s možností filtrování.",
+                "operationId": "1bfaa78d1c2c3848ab8165c5dadcad3e",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filtrování podle názvu produktu (case-insensitive)"
+                    },
+                    {
+                        "name": "stock_from",
+                        "in": "query",
+                        "description": "Filtrovat produkty s počtem kusů VĚTŠÍM NEBO ROVNO zadané hodnotě"
+                    },
+                    {
+                        "name": "stock_to",
+                        "in": "query",
+                        "description": "Filtrovat produkty s počtem kusů MENŠÍM NEBO ROVNO zadané hodnotě"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Úspěšná operace"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Produkty"
+                ],
+                "summary": "Vytvoří nový produkt",
+                "description": "Uloží nově vytvořený produkt do databáze.",
+                "operationId": "e8185e307706e2cd84bbcf5171e2f09d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Jablko"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 10.5
+                                    },
+                                    "stock_quantity": {
+                                        "type": "integer",
+                                        "example": 100
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Produkt úspěšně vytvořen"
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "put": {
+                "tags": [
+                    "Produkty"
+                ],
+                "summary": "Aktualizuje produkt (pouze podle ID)",
+                "description": "Aktualizuje specifický produkt v databázi.",
+                "operationId": "6a7e11900844cd85cff66e662b82bd4c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID produktu pro aktualizaci",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Hruška"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 12
+                                    },
+                                    "stock_quantity": {
+                                        "type": "integer",
+                                        "example": 50
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produkt úspěšně aktualizován"
+                    },
+                    "404": {
+                        "description": "Produkt nenalezen"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Produkty"
+                ],
+                "summary": "Smaže produkt (pouze podle ID)",
+                "description": "Odstraní specifický produkt z databáze.",
+                "operationId": "e80a6ca46716acee6b47ea1ac91663c0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID produktu ke smazání",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Produkt úspěšně smazán"
+                    },
+                    "404": {
+                        "description": "Produkt nenalezen"
+                    }
+                }
+            }
+        },
+        "/api/products/{identifier}/price-history": {
+            "get": {
+                "tags": [
+                    "Produkty"
+                ],
+                "summary": "Získá historii cen produktu podle ID nebo jména",
+                "description": "Zobrazí historii cen pro daný produkt.",
+                "operationId": "ee340d9aa937e27d5774fa84e1868447",
+                "parameters": [
+                    {
+                        "name": "identifier",
+                        "in": "path",
+                        "description": "ID (číslo) nebo jméno (text) produktu",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Úspěšná operace"
+                    },
+                    "404": {
+                        "description": "Produkt nenalezen"
+                    }
+                }
+            }
+        },
+        "/api/products/{identifier}/stock-history": {
+            "get": {
+                "tags": [
+                    "Produkty"
+                ],
+                "summary": "Získá historii skladu produktu podle ID nebo jména",
+                "description": "Zobrazí historii skladu pro daný produkt.",
+                "operationId": "896c1c57edfff42760249011975818e2",
+                "parameters": [
+                    {
+                        "name": "identifier",
+                        "in": "path",
+                        "description": "ID (číslo) nebo jméno (text) produktu",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Úspěšná operace"
+                    },
+                    "404": {
+                        "description": "Produkt nenalezen"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Produkty",
+            "description": "Produkty"
+        }
+    ]
+}
