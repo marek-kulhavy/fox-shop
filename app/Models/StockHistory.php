@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property-read \App\Models\Product $product
  */
-class StockHistory extends BaseModel
+class StockHistory extends BaseModel    
 {
     /**
      * Vrací název databázové tabulky přiřazené k modelu.
@@ -34,8 +34,8 @@ class StockHistory extends BaseModel
     {
         return [
             'product_id',
-            'old_quantity',
-            'new_quantity',
+            'old_stock',
+            'new_stock',
             'changed_at',
         ];
     }

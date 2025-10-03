@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('stock_history', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('old_quantity');
-            $table->integer('new_quantity');
+            $table->integer('old_stock');
+            $table->integer('new_stock');
             $table->timestamp('changed_at');
         });
     }
